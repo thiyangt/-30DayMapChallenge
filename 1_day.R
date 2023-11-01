@@ -4,6 +4,7 @@ library(ceylon)
 library(sp)
 library(viridis)
 library(sf)
+library(ggrepel)
 
 ## data
 # source
@@ -22,7 +23,7 @@ sri_lanaka  <- sri_lanaka %>%
 
 #plot
 
-ggplot(district) + 
+p1 <- ggplot(district) + 
   geom_sf() +
   geom_sf(data = sri_lanaka ,
           size = 2,
@@ -30,3 +31,5 @@ ggplot(district) +
           alpha=0.5) + 
          labs(title ="Sri Lanka Cities Available in the World Cities Database",
               caption = "Source: https://simplemaps.com/data/world-cities")
+p1
+
