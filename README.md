@@ -25,4 +25,4 @@
 
 ## Day 5: Analog map
 
-![](day5.png)
+![](day5.jpeg)
