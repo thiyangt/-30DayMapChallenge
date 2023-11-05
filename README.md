@@ -1,5 +1,5 @@
 
-#30DayMapChallenge
+# #30DayMapChallenge
 
 ![](https://raw.githubusercontent.com/tjukanovt/30DayMapChallenge/main/images/flyers/30dmc-2023.png)
 
