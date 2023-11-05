@@ -1,0 +1,11 @@
+---
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Day 4
+
+Yesterday, I shared a map illustrating the global happiness gap gap distribution. #30daymapchallenge, today's theme is "A bad map". I decided to create a less optimal version of the same map. It's a reminder that colors and scale of measurement play a crucial role in creating impactful visualizations.
