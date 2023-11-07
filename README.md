@@ -26,3 +26,11 @@
 ## Day 5: Analog map
 
 ![](day5.jpeg)
+
+## Day 6: Asia
+
+![](day6.png)
+
+## Day 7: Navigation
+
+![](day7.png)
