@@ -34,3 +34,7 @@
 ## Day 7: Navigation
 
 ![](day7.png)
+
+## Day 8: Africa
+
+![](day8.png)
