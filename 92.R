@@ -4,38 +4,62 @@ library(ggplot2)
 library(sf)
 library(tidyverse)
 
-#us <- st_read("us_states_hexgrid.geojson")
-us <- readOGR("us_states_hexgrid.geojson")
-us@data <- us@data |>
+
+us <- st_read("us_states_hexgrid.geojson")
+class(us)
+View(us)
+# Extracting geometry
+geometry <- st_geometry(us)
+# Extracting latitude and longitude
+coordinates <- st_coordinates(geometry)
+head(coordinates)
+tail(coordinates)
+lat_lon_df <- data.frame(
+  group = coordinates[, "L2"],
+  iso3166_2 = us$iso3166_2,
+  latitude = coordinates[, "Y"],
+  longitude = coordinates[, "X"]
+)
+
+View(lat_lon_df)
+
+us <- left_join(us, lat_lon_df, by="iso3166_2")
+View(us)
+us <- us |>
   mutate(google_name = gsub(" \\(United States\\)", "", google_name))
 
-usfortify <- st_centroid(us)
-usfortify <- usfortify |>
+#centers
+spdf <- readOGR("us_states_hexgrid.geojson")
+spdf@data <- spdf@data |>
   mutate(google_name = gsub(" \\(United States\\)", "", google_name))
-View(usfortify)
-usfortify <- usfortify |> extract(geometry, c('lat', 'lon'), '\\((.*), (.*)\\)', convert = TRUE) 
-view(usfortify)
-#centers$id <- us$iso3166_2
-centers <- cbind.data.frame(data.frame(gCentroid(us, byid=TRUE), id=us@data$iso3166_2))
+centers <- cbind.data.frame(data.frame(gCentroid(spdf, byid=TRUE), id=spdf@data$iso3166_2))
 
 # trees
 #https://www.gotreequotes.com/states-with-most-forested-acres/#US_Forest_Cover_Map
 trees_usa <- read_csv("trees_usa.csv")
 View(trees_usa)
 trees_usa <- trees_usa |> rename("google_name" = state)
-usfortify <- left_join(usfortify, trees_usa, by = "google_name")
+us <- left_join(us, trees_usa)
+View(us)
+colnames(us)
 
+us <- us |>
+  mutate(tree_levels = case_when(trees.per.capita < 10 ~ "1-10",
+                                 trees.per.capita > 10 & trees.per.capita < 50 ~ "10-50",
+                                 trees.per.capita >= 50 & trees.per.capita < 500 ~  "50-500",
+                                 trees.per.capita >= 500 & trees.per.capita < 1000 ~ "500-1000",
+                                 trees.per.capita >= 1000 ~ "≥ 1000"))
+
+us <- data |> 
+  mutate(across(c(percentage.of.land.forested), 
+                ~str_remove(.x, "%") %>% as.numeric())) 
+
+#us <- as.data.frame(us)
 gg <- ggplot() + 
-  geom_polygon(data = usfortify, aes( x = lon, y = lat,group=label.y)) 
-gg <- gg + geom_text(data=centers, aes(label=id), color="white", size=4)
-gg
-gg <- gg + scale_fill_distiller(palette="RdPu", na.value="#7f7f7f")
-gg <- gg + coord_sf()
-gg <- gg + labs(x=NULL, y=NULL)
-gg <- gg + theme_bw()
-gg <- gg + theme(panel.border=element_blank())
-gg <- gg + theme(panel.grid=element_blank())
-gg <- gg + theme(axis.ticks=element_blank())
-gg <- gg + theme(axis.text=element_blank())
+  #geom_polygon(data = spdf, aes( x = long, y = lat, group = group),fill="white",color="black")+
+  geom_polygon(data=us, aes(x = longitude, 
+                            y = latitude, 
+                            fill=tree_levels, 
+                            group=group))
+gg + scale_fill_manual(values = viridis::viridis(n=5))
 
-print(gg)
