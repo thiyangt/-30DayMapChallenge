@@ -28,7 +28,7 @@ africa_2020 |>
   geom_tile() +
   scale_fill_manual(values = viridis::turbo(n=5),  name = NULL) +
   scale_color_manual(values = viridis::turbo(n=5), name = NULL) +
-  xlab("latittude") + ylab("longitude") + 
+  ylab("latittude") + xlab("longitude") + 
   ggtitle(" Population density 2020 from WorldPop* aggregated to 20km squares") +
   labs(caption = ("afrilearndata package in R\nWorldPop: https://www.worldpop.org/\n#30DayMapChallenge\nThiyanga S. Talagala"))
 
