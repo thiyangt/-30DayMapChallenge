@@ -9,10 +9,7 @@ library(sp)
 #install.packages("remotes")
 #remotes::install_github("ropensci/geojsonio")
 
-# data
-#https://www.gotreequotes.com/states-with-most-forested-acres/#US_Forest_Cover_Map
-trees_usa <- read_csv("trees_usa.csv")
-View(trees_usa)
+
 
 ## map
 #https://www.rpubs.com/ishaque007/744287
@@ -23,12 +20,7 @@ spdf@data <- spdf@data |>
 
 centers <- cbind.data.frame(data.frame(gCentroid(spdf, byid=TRUE), id=spdf@data$iso3166_2))
 
-library(maps) # For map data
-# Get map data for USA
-states_map <- map_data("state") 
-View(states_map)
-spdf_tidy <- tidy(spdf)
-View(spdf_tidy)
+
 
 
 

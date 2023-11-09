@@ -24,8 +24,7 @@ trees_usa <- read_csv("trees_usa.csv")
 View(trees_usa)
 trees_usa <- trees_usa |> rename("google_name" = state)
 usfortify <- left_join(usfortify, trees_usa, by = "google_name")
-usfortify <- left_join( us@data,usfortify, by = "google_name")
-View(usfortify)
+
 gg <- ggplot() + 
   geom_polygon(data = usfortify, aes( x = lon, y = lat,group=label.y)) 
 gg <- gg + geom_text(data=centers, aes(label=id), color="white", size=4)
