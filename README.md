@@ -39,6 +39,10 @@
 
 ![](day8.png)
 
-## Day 8: Hexbin
+## Day 9: Hexbin
 
 ![](day9.png)
+
+## Day 10: North America
+
+![](10.3.png)
