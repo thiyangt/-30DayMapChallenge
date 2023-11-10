@@ -40,7 +40,7 @@ centers <- cbind.data.frame(data.frame(gCentroid(spdf, byid=TRUE), id=spdf@data$
 trees_usa <- read_csv("trees_usa.csv")
 View(trees_usa)
 trees_usa <- trees_usa |> rename("google_name" = state)
-us <- left_join(us, trees_usa)
+us <- left_join(us, trees_usa, by="google_name")
 View(us)
 colnames(us)
 
@@ -56,15 +56,19 @@ us <- us |>
                 ~str_remove(.x, "%") %>% as.numeric())) 
 View(us)
 #us <- as.data.frame(us)
+us$percentage.of.land.forested <- as.numeric(
+  us$percentage.of.land.forested
+)
 gg <- ggplot() + 
   #geom_polygon(data = spdf, aes( x = long, y = lat, group = group),fill="white",color="black")+
   geom_polygon(data=us, aes(x = longitude, 
                             y = latitude, 
-                            fill=percentage.of.land.forested, 
-                           group=group))
+                            fill=as.numeric(percentage.of.land.forested), 
+                           group=group 
+        ))
 gg
 gg + 
-  geom_text(data=centers, aes(x=x, y=y, label=id)) +
+  geom_text(data=us, aes(x=longitude, y=latitude, label=percentage.of.land.forested)) +
   #theme_void() +
 
   coord_map() +
