@@ -3,6 +3,7 @@ library(rgeos)
 library(ggplot2)
 library(sf)
 library(tidyverse)
+library(viridis)
 
 
 us <- st_read("us_states_hexgrid.geojson")
@@ -45,21 +46,30 @@ colnames(us)
 
 us <- us |>
   mutate(tree_levels = case_when(trees.per.capita < 10 ~ "1-10",
-                                 trees.per.capita > 10 & trees.per.capita < 50 ~ "10-50",
+                                 trees.per.capita >= 10 & trees.per.capita < 50 ~ "10-50",
                                  trees.per.capita >= 50 & trees.per.capita < 500 ~  "50-500",
                                  trees.per.capita >= 500 & trees.per.capita < 1000 ~ "500-1000",
                                  trees.per.capita >= 1000 ~ "≥ 1000"))
 
-us <- data |> 
+us <- us |> 
   mutate(across(c(percentage.of.land.forested), 
                 ~str_remove(.x, "%") %>% as.numeric())) 
-
+View(us)
 #us <- as.data.frame(us)
 gg <- ggplot() + 
   #geom_polygon(data = spdf, aes( x = long, y = lat, group = group),fill="white",color="black")+
   geom_polygon(data=us, aes(x = longitude, 
                             y = latitude, 
-                            fill=tree_levels, 
-                            group=group))
-gg + scale_fill_manual(values = viridis::viridis(n=5))
+                            fill=percentage.of.land.forested, 
+                           group=group))
+gg
+gg + 
+  geom_text(data=centers, aes(x=x, y=y, label=id)) +
+  #theme_void() +
+
+  coord_map() +
+  labs(x= 'Longitute' , y = 'Latitude',
+       title = "Percentage of land forested in the US by states: 2023",
+       caption = 'source: https://www.gotreequotes.com/states-with-most-forested-acres/\n#30DayMapChallenge\nThiyanga S. Talagala')
+
 
