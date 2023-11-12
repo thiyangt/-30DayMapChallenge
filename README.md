@@ -50,3 +50,7 @@
 ## Day 11: Retro
 
 ![](day11g.png)
+
+## Day 12: South America
+
+![](day12.png)
