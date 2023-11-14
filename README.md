@@ -54,3 +54,7 @@
 ## Day 12: South America
 
 ![](day12.png)
+
+## Day 13: Choropleth
+
+![](day13.png)
