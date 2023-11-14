@@ -58,3 +58,11 @@
 ## Day 13: Choropleth
 
 ![](day13.png)
+
+## Day 14: Europe
+
+## Day 15: OpenStreetMap
+
+## Day 16: Oceania
+
+## Day 17: Flow
