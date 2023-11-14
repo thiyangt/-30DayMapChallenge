@@ -61,6 +61,8 @@
 
 ## Day 14: Europe
 
+![](day14.png)
+
 ## Day 15: OpenStreetMap
 
 ## Day 16: Oceania
