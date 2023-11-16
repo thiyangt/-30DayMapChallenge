@@ -65,6 +65,8 @@
 
 ## Day 15: OpenStreetMap
 
+![](day15.png)
+
 ## Day 16: Oceania
 
 ## Day 17: Flow
