@@ -69,4 +69,6 @@
 
 ## Day 16: Oceania
 
+![](day16.png)
+
 ## Day 17: Flow
