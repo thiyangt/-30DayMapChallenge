@@ -72,3 +72,6 @@
 ![](day16.png)
 
 ## Day 17: Flow
+
+![](day17.png)
+
