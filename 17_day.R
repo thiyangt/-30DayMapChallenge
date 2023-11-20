@@ -21,6 +21,3 @@ g <- ggplot(data = sf_sl_0) +
   labs(title =  "Sri Lanka Rivers and Streams",
        caption = '#30DayMapChallenge\nThiyanga S. Talagala\ndata:https://data.humdata.org/dataset/sri-lanka-water-bodies-0-0?#') 
 g
-
-
-

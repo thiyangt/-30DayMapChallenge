@@ -75,3 +75,6 @@
 
 ![](day17.png)
 
+## Day 19: 5 minutes map
+
+![](day19.png)
